@@ -1,12 +1,17 @@
 import * as dotenv from 'dotenv'
-dotenv.config({ path: '../.env' })
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
 import connectDB from './db/connect.js'
+import postRoutes from './routes/posts.js'
 
+// initiate app and env file
 const app = express()
+dotenv.config({ path: '../.env' })
+
+// routes
+app.use('/posts', postRoutes)
 
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
@@ -23,6 +28,5 @@ const start = async () => {
     console.log(error)
   }
 }
-
 
 start()
